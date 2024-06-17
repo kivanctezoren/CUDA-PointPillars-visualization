@@ -1,3 +1,7 @@
+**Fork incorporating jcuic5's PR (https://github.com/NVIDIA-AI-IOT/CUDA-PointPillars/pull/6)**
+
+---
+
 # PointPillars Inference with TensorRT
 
 This repository contains sources and model for [pointpillars](https://arxiv.org/abs/1812.05784) inference using TensorRT.
