@@ -18,6 +18,8 @@ if __name__ == "__main__":
     boxes_path = args.boxes_path
     score_thr = args.score_thr
 
+    print("Score threshold:", score_thr)
+
     cloud = np.fromfile(cloud_path, dtype=np.float32).reshape(-1,4)
     boxes = np.loadtxt(boxes_path).reshape(-1,9)
     classes = boxes[:, -2].astype(int)  # Second last column
