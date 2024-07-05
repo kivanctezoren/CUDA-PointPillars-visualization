@@ -11,6 +11,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--cloud_path', type=str, default='../data/000000.bin')
 parser.add_argument('--boxes_path', type=str, default='../data/box_prediction/result_000000.txt')
 parser.add_argument('--score_thr', type=float, default=0.3)
+parser.add_argument('--verbose', action='store_true')
+parser.add_argument('--draw_arrow', action='store_true')
 
 if __name__ == "__main__":
     args = parser.parse_args()
@@ -25,4 +27,4 @@ if __name__ == "__main__":
     classes = boxes[:, -2].astype(int)  # Second last column
 
     boxes = boxes[boxes[:, -1] > score_thr][:, :7]
-    draw_clouds_with_boxes(cloud, boxes, classes)
+    draw_clouds_with_boxes(cloud, boxes, classes, draw_arrow=args.draw_arrow, verbose=args.verbose)

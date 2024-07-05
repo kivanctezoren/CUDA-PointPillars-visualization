@@ -29,7 +29,7 @@ def create_box_with_arrow(box, color=None):
     return box_o3d, arrow
 
 
-def draw_clouds_with_boxes(cloud, boxes, classes, verbose=True):
+def draw_clouds_with_boxes(cloud, boxes, classes, draw_arrow=True, verbose=True):
     """
     cloud: (N, 4)  [x, y, z, intensity]
     boxes: (n,7) np.array = n*7  ( x, y, z, dx, dy, dz, yaw) 
@@ -52,15 +52,15 @@ def draw_clouds_with_boxes(cloud, boxes, classes, verbose=True):
     boxes_o3d = []
 
     # create boxes
-    for box in boxes:
+    for i, box in enumerate(boxes):
         # create color for each box by class
-        if classes[0] == 0:  # car
+        if classes[i] == 0:  # car
             if verbose: print("Car coords:", box)
             cur_box_color = [1, 0, 0]
-        elif classes[0] == 1:  # pedestrian
+        elif classes[i] == 1:  # pedestrian
             if verbose: print("Pedestrian coords:", box)
             cur_box_color = [0, 1, 0]
-        elif classes[0] == 2:  # cyclist
+        elif classes[i] == 2:  # cyclist
             if verbose: print("Cyclist coords:", box)
             cur_box_color = [0, 0, 1]
         else:
@@ -68,7 +68,8 @@ def draw_clouds_with_boxes(cloud, boxes, classes, verbose=True):
 
         box_o3d, arrow = create_box_with_arrow(box, cur_box_color)
         boxes_o3d.append(box_o3d)
-        boxes_o3d.append(arrow)
+        if draw_arrow:
+            boxes_o3d.append(arrow)
 
     # add_geometry fro boxes
     [vis.add_geometry(element) for element in boxes_o3d]
