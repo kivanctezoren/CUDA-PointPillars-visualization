@@ -24,7 +24,8 @@ if __name__ == "__main__":
 
     cloud = np.fromfile(cloud_path, dtype=np.float32).reshape(-1,4)
     boxes = np.loadtxt(boxes_path).reshape(-1,9)
+    boxes = boxes[boxes[:, -1] > score_thr][:, :7]
+    
     classes = boxes[:, -2].astype(int)  # Second last column
 
-    boxes = boxes[boxes[:, -1] > score_thr][:, :7]
     draw_clouds_with_boxes(cloud, boxes, classes, draw_arrow=args.draw_arrow, verbose=args.verbose)
